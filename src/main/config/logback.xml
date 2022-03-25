@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="LOG_HOME" value="/var/log/develop/xsrk/integral" />
+    <substitutionProperty name="log.base" value="integral" />
+
+    <jmxConfigurator />
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/${log.base}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${log.base}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.cool170.cc.commci">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.springframework">
+        <level value="ERROR" />
+    </logger>
+    <logger name="org.mybatis">
+        <level value="ERROR" />
+    </logger>
+    <logger name="java.sql.Connection">
+        <level value="DEBUG" />
+    </logger>
+    <logger name="java.sql.Statement">
+        <level value="DEBUG" />
+    </logger>
+    <logger name="org.apache.http">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.apache.struts2">
+        <level value="INFO" />
+    </logger>
+    <logger name="com.opensymphony.xwork2">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.logicalcobwebs.proxool">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.quartz">
+        <level value="WARN" />
+    </logger>
+    <logger name="org.mongodb.driver.cluster">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.mongodb.driver.connection">
+        <level value="INFO" />
+    </logger>
+    <logger name="com.netflix">
+        <level value="OFF" />
+    </logger>
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="stdout" />
+        <appender-ref ref="logfile" />
+    </root>
+</configuration>
+
